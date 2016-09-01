@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 import javax.swing.JFrame;
 
 public class MyMain
@@ -10,6 +12,7 @@ public class MyMain
 		
 		frame.add(theComponent);
 		
+		frame.setBackground(Color.BLUE);
 		frame.setSize(300, 400);
 		frame.setTitle("-----Java Gurus------");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
