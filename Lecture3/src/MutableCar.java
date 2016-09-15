@@ -7,14 +7,27 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
 public class MutableCar {
-
+	//Private - no se puede accesar a esa propiedad
 	private double xPos = 0;
 	private double yPos = 0;
 	private Color color;
+	private int horizontalSpeed = 0; //Car Speed in pixels per second
+	private int horizontalDirection;
 
 	public MutableCar(double x, double y) {
 		this.xPos = x;
 		this.yPos = y;
+		horizontalSpeed = 10;
+		this.color = color;
+		horizontalDirection = 1; //Inicialmente se está moviendo a la derecha
+	}
+
+	public MutableCar(double x, double y, Color color, int hSpeed, int HDir) {
+		this.xPos = x;
+		this.yPos = y;
+		horizontalSpeed = 10;
+		this.color = color;
+		horizontalDirection = 1; //Inicialmente se está moviendo a la derecha
 	}
 
 	public MutableCar(double x, double y, Color color){ //Color color or Color c
@@ -22,14 +35,14 @@ public class MutableCar {
 		this.yPos = y;
 		this.color = color;// this.color = color; or color = c
 	}
-	
+
 	public Color getColor() {
 		return this.color;
 	}
 	public double getXPos(){
 		return this.xPos;
 	}
-	
+
 	public double getYPos(){
 		return this.yPos;
 	}
@@ -39,9 +52,25 @@ public class MutableCar {
 		this.xPos = xPos;
 		this.yPos = yPos;
 	}
-	
+
 	public void setColor (Color color){
 		this.color = color;	
+	}
+
+	public int getHorizontalSpeed() {
+		return horizontalSpeed;
+	}
+
+	public void setHorizontalSpeed(int horizontalSpeed) {
+		this.horizontalSpeed = horizontalSpeed;
+	}
+
+	public int getHorizontalDirection() {
+		return horizontalDirection;
+	}
+
+	public void setHorizontalDirection(int horizontalDirection) {
+		this.horizontalDirection = horizontalDirection;
 	}
 
 	public void draw(Graphics g) {
@@ -65,6 +94,10 @@ public class MutableCar {
 
 		Rectangle.Double body = new Rectangle.Double(this.xPos+0,this.yPos+10,60.0,10.0);
 
+		Rectangle.Double leftLight = new Rectangle.Double(this.xPos+0,this.yPos+10,5.0,5.0);
+		Rectangle.Double rightLight = new Rectangle.Double(this.xPos+55,this.yPos+10,5.0,5.0);
+
+		g2.setColor(Color.BLACK);
 		g2.fill(rearTire);
 		g2.fill(frontTire);
 		g2.setColor(this.getColor());
@@ -72,6 +105,16 @@ public class MutableCar {
 		g2.draw(rearWindow);
 		g2.draw(frontWindow);
 		g2.draw(roof);
-		g2.setColor(Color.BLACK);
+		if(this.getHorizontalDirection()>= 0){
+			g2.setColor(Color.YELLOW);
+			g2.fill(rightLight);
+			g2.setColor(Color.RED);
+			g2.fill(leftLight);
+		}else {
+			g2.setColor(Color.YELLOW);
+			g2.fill(leftLight);
+			g2.setColor(Color.RED);
+			g2.fill(rightLight);
+		}
 	}
 }
